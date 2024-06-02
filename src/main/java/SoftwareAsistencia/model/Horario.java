@@ -9,7 +9,7 @@ public class Horario {
     private String horarioDiaSemana;
     private Date horarioHoraInicio;
     private Date horarioHoraFin;
-
+  private Laboratorio Laboratorio;
     public Horario(int horarioID, int horarioCursoID, int horarioLaboratorioID, String horarioDiaSemana, Date horarioHoraInicio, Date horarioHoraFin) {
         this.horarioID = horarioID;
         this.horarioCursoID = horarioCursoID;
@@ -17,6 +17,24 @@ public class Horario {
         this.horarioDiaSemana = horarioDiaSemana;
         this.horarioHoraInicio = horarioHoraInicio;
         this.horarioHoraFin = horarioHoraFin;
+    }
+
+    public Horario(int horarioID, int horarioCursoID, int horarioLaboratorioID, String horarioDiaSemana, Date horarioHoraInicio, Date horarioHoraFin, Laboratorio Laboratorio) {
+        this.horarioID = horarioID;
+        this.horarioCursoID = horarioCursoID;
+        this.horarioLaboratorioID = horarioLaboratorioID;
+        this.horarioDiaSemana = horarioDiaSemana;
+        this.horarioHoraInicio = horarioHoraInicio;
+        this.horarioHoraFin = horarioHoraFin;
+        this.Laboratorio = Laboratorio;
+    }
+
+    public Laboratorio getLaboratorio() {
+        return Laboratorio;
+    }
+
+    public void setLaboratorio(Laboratorio Laboratorio) {
+        this.Laboratorio = Laboratorio;
     }
 
     public int getHorarioID() {

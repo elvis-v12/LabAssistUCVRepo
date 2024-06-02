@@ -1,4 +1,5 @@
 package SoftwareAsistencia.model;
+
 public class Alumno {
     private int alumnoCodigo;
     private String alumnoNombres;
@@ -8,8 +9,9 @@ public class Alumno {
     private String alumnoImagenRostro;
     private String alumnoCarreraProfesional;
     private String alumnoEstado;
-
-    public Alumno(int alumnoCodigo, String alumnoNombres, String alumnoApellidos, String alumnoEmail, String alumnoQR, String alumnoImagenRostro, String alumnoCarreraProfesional, String alumnoEstado) {
+    private Asistencia asistencia;
+ private Laboratorio Laboratorio;
+    public Alumno(int alumnoCodigo, String alumnoNombres, String alumnoApellidos, String alumnoEmail, String alumnoQR, String alumnoImagenRostro, String alumnoCarreraProfesional, String alumnoEstado, Asistencia asistencia) {
         this.alumnoCodigo = alumnoCodigo;
         this.alumnoNombres = alumnoNombres;
         this.alumnoApellidos = alumnoApellidos;
@@ -18,8 +20,25 @@ public class Alumno {
         this.alumnoImagenRostro = alumnoImagenRostro;
         this.alumnoCarreraProfesional = alumnoCarreraProfesional;
         this.alumnoEstado = alumnoEstado;
+        this.asistencia = asistencia;
     }
 
+    public Alumno(int alumnoCodigo, String alumnoNombres, String alumnoApellidos, String alumnoEmail, String alumnoQR, String alumnoImagenRostro, String alumnoCarreraProfesional, String alumnoEstado, Asistencia asistencia, Laboratorio Laboratorio) {
+        this.alumnoCodigo = alumnoCodigo;
+        this.alumnoNombres = alumnoNombres;
+        this.alumnoApellidos = alumnoApellidos;
+        this.alumnoEmail = alumnoEmail;
+        this.alumnoQR = alumnoQR;
+        this.alumnoImagenRostro = alumnoImagenRostro;
+        this.alumnoCarreraProfesional = alumnoCarreraProfesional;
+        this.alumnoEstado = alumnoEstado;
+        this.asistencia = asistencia;
+        this.Laboratorio = Laboratorio;
+    }
+
+
+  
+    // Getters y setters aquí
     public int getAlumnoCodigo() {
         return alumnoCodigo;
     }
@@ -84,5 +103,20 @@ public class Alumno {
         this.alumnoEstado = alumnoEstado;
     }
 
+    public Asistencia getAsistencia() {
+        return asistencia;
+    }
+
+    public void setAsistencia(Asistencia asistencia) {
+        this.asistencia = asistencia;
+    }
+
+    public Laboratorio getLaboratorio() {
+        return Laboratorio;
+    }
+
+    public void setLaboratorio(Laboratorio Laboratorio) {
+        this.Laboratorio = Laboratorio;
+    }
     
 }

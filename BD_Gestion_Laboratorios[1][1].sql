@@ -14,6 +14,7 @@ CREATE TABLE Alumno (
     Alumno_Imagen_Rostro VARCHAR(500),
     Alumno_Carrera_Profesional VARCHAR(100),
     Alumno_Estado VARCHAR(50)
+
 );
 GO
 
@@ -32,6 +33,7 @@ CREATE TABLE Laboratorio (
     Laboratorio_Nombre VARCHAR(100),
     Laboratorio_Ubicacion INT,
     Laboratorio_Capacidad INT
+
 );
 GO
 
@@ -90,6 +92,9 @@ CREATE TABLE Notificacion_Correo (
     FOREIGN KEY (Asistencia_ID) REFERENCES Asistencia(Asistencia_ID)
 );
 GO
+
+
+
 
 -- Insertar datos de prueba para la tabla Alumno
 INSERT INTO Alumno (Alumno_Nombres, Alumno_Apellidos, Alumno_Email, Alumno_QR, Alumno_Imagen_Rostro, Alumno_Carrera_Profesional, Alumno_Estado)
@@ -201,3 +206,9 @@ SELECT * FROM Horario;
 SELECT * FROM Asistencia;
 SELECT * FROM Observaciones_Laboratorio;
 SELECT * FROM Notificacion_Correo;
+
+
+
+
+
+

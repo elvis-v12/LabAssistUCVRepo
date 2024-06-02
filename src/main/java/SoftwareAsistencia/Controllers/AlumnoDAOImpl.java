@@ -12,54 +12,7 @@ public class AlumnoDAOImpl implements AlumnoDAO {
         this.connection = connection;
     }
 
-    @Override
-    public Alumno getAlumnoById(int id) {
-        String query = "SELECT * FROM Alumno WHERE Alumno_Codigo = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new Alumno(
-                    rs.getInt("Alumno_Codigo"),
-                    rs.getString("Alumno_Nombres"),
-                    rs.getString("Alumno_Apellidos"),
-                    rs.getString("Alumno_Email"),
-                    rs.getString("Alumno_QR"),
-                    rs.getString("Alumno_Imagen_Rostro"),
-                    rs.getString("Alumno_Carrera_Profesional"),
-                    rs.getString("Alumno_Estado")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Alumno> getAllAlumnos() {
-        List<Alumno> alumnos = new ArrayList<>();
-        String query = "SELECT * FROM Alumno";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-            while (rs.next()) {
-                alumnos.add(new Alumno(
-                    rs.getInt("Alumno_Codigo"),
-                    rs.getString("Alumno_Nombres"),
-                    rs.getString("Alumno_Apellidos"),
-                    rs.getString("Alumno_Email"),
-                    rs.getString("Alumno_QR"),
-                    rs.getString("Alumno_Imagen_Rostro"),
-                    rs.getString("Alumno_Carrera_Profesional"),
-                    rs.getString("Alumno_Estado")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return alumnos;
-    }
-
+   
     @Override
     public void addAlumno(Alumno alumno) {
         String query = "INSERT INTO Alumno (Alumno_Nombres, Alumno_Apellidos, Alumno_Email, Alumno_QR, Alumno_Imagen_Rostro, Alumno_Carrera_Profesional, Alumno_Estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -104,5 +57,15 @@ public class AlumnoDAOImpl implements AlumnoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Alumno getAlumnoById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Alumno> getAllAlumnos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

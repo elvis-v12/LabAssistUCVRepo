@@ -1,9 +1,25 @@
 package SoftwareAsistencia.model;
+
 public class Curso {
     private int cursoID;
     private String cursoNombre;
     private int cursoTotalAlumnos;
     private int cursoProfesorCodigo;
+    private Horario horario;
+    private Laboratorio laboratorio;
+
+    public Curso(int cursoID, String cursoNombre, int cursoTotalAlumnos, int cursoProfesorCodigo, Horario horario, Laboratorio laboratorio) {
+        this.cursoID = cursoID;
+        this.cursoNombre = cursoNombre;
+        this.cursoTotalAlumnos = cursoTotalAlumnos;
+        this.cursoProfesorCodigo = cursoProfesorCodigo;
+        this.horario = horario;
+        this.laboratorio = laboratorio;
+    }
+
+    public Curso(String cursoNombre) {
+        this.cursoNombre = cursoNombre;
+    }
 
     public Curso(int cursoID, String cursoNombre, int cursoTotalAlumnos, int cursoProfesorCodigo) {
         this.cursoID = cursoID;
@@ -11,6 +27,12 @@ public class Curso {
         this.cursoTotalAlumnos = cursoTotalAlumnos;
         this.cursoProfesorCodigo = cursoProfesorCodigo;
     }
+
+    public Laboratorio getLaboratorio() {
+        return laboratorio;
+    }
+
+    // Getters y setters aquí
 
     public int getCursoID() {
         return cursoID;
@@ -44,5 +66,11 @@ public class Curso {
         this.cursoProfesorCodigo = cursoProfesorCodigo;
     }
 
-    
+    public Horario getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Horario horario) {
+        this.horario = horario;
+    }
 }

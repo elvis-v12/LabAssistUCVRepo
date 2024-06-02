@@ -1,6 +1,9 @@
 package SoftwareAsistencia;
 
-import SofwareRegistroAsistencia.view.Lista.jfrmRegistroDocente;
+import SofwareRegistroAsistencia.view.Lista.Asistencia_Estudiantes;
+import SofwareRegistroAsistencia.view.Lista.Monitoreo_De_Laboratorios;
+import SofwareRegistroAsistencia.view.Lista.jfrmAsistencia;
+import SofwareRegistroAsistencia.view.Lista.jfrmRegistro;
 
 
 
@@ -10,7 +13,7 @@ import SofwareRegistroAsistencia.view.Lista.jfrmRegistroDocente;
 public class SoftwareMatriculaAppliation {
 
         public static void main(String[] args) {
-              java.awt.EventQueue.invokeLater(() -> new jfrmRegistroDocente().setVisible(true));
+              java.awt.EventQueue.invokeLater(() -> new Monitoreo_De_Laboratorios().setVisible(true));
                 
         }
 }

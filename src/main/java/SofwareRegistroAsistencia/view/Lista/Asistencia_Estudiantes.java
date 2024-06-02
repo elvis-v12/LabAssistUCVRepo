@@ -1,5 +1,11 @@
 package SofwareRegistroAsistencia.view.Lista;
 
+import SoftwareAsistencia.Controllers.AsistenciDAOImpl;
+import SoftwareAsistencia.model.Alumno;
+import SoftwareAsistencia.model.ConexionSQL;
+import SoftwareAsistencia.model.ReporteService;
+import SoftwareAsistencia.model.interfaz.AsistenciaDAO;
+import Vista.PanelRound;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -7,15 +13,40 @@ import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
  
-public class Prueba2 extends javax.swing.JFrame {
- 
-    public Prueba2() {
-     
-JpanelRound1.setBackground(new Color(0, 0, 0, 160));
-this.setLocationRelativeTo(null);
-jPanel1.setSize(1108, 633); 
+public class Asistencia_Estudiantes extends javax.swing.JFrame {
+
+    
+    
+    
+    public Asistencia_Estudiantes() {
+         initComponents();
+   // Inicialización de componentes
+        JpanelRound1 = new PanelRound();
+        jPanel1 = new JPanel();
+
+        // Configuraciones del JpanelRound1
+        JpanelRound1.setRoundTopLeft(50);
+        JpanelRound1.setRoundTopRight(50);
+        JpanelRound1.setRoundBottomLeft(50);
+        JpanelRound1.setRoundBottomRight(50);
+        JpanelRound1.setBackground(new Color(0, 0, 0, 150));
+
+        // Configuraciones del JFrame
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setSize(1108, 633);
+        this.setLayout(new BorderLayout());
+
+        // Añadir JpanelRound1 al JFrame
+        this.add(JpanelRound1, BorderLayout.CENTER);
     }
  
     @SuppressWarnings("unchecked")
@@ -25,9 +56,9 @@ jPanel1.setSize(1108, 633);
         jMenu1 = new javax.swing.JMenu();
         JpanelRound1 = new Vista.PanelRound();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jtDATOS = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         jDateChooser7 = new com.toedter.calendar.JDateChooser();
         jDateChooser8 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
@@ -44,7 +75,7 @@ jPanel1.setSize(1108, 633);
         jLabel9 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnGenerarInforme = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
@@ -61,7 +92,7 @@ jPanel1.setSize(1108, 633);
         JpanelRound1.setRoundTopRight(50);
         JpanelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jtDATOS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -84,8 +115,9 @@ jPanel1.setSize(1108, 633);
                 return types [columnIndex];
             }
         });
-        jTable3.setColumnSelectionAllowed(true);
-        jScrollPane3.setViewportView(jTable3);
+        jtDATOS.setColumnSelectionAllowed(true);
+        jScrollPane3.setViewportView(jtDATOS);
+        jtDATOS.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         JpanelRound1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 650, 340));
 
@@ -97,7 +129,7 @@ jPanel1.setSize(1108, 633);
             }
         });
         JpanelRound1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 30, 30));
-        JpanelRound1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, 30));
+        JpanelRound1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, 30));
         JpanelRound1.add(jDateChooser7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 210, 30));
         JpanelRound1.add(jDateChooser8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 210, 30));
 
@@ -167,15 +199,15 @@ jPanel1.setSize(1108, 633);
         });
         JpanelRound1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, -1, 30));
 
-        jButton6.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 20)); // NOI18N
-        jButton6.setText("INFORME");
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerarInforme.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 20)); // NOI18N
+        btnGenerarInforme.setText("INFORME");
+        btnGenerarInforme.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btnGenerarInforme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnGenerarInformeActionPerformed(evt);
             }
         });
-        JpanelRound1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, 30));
+        JpanelRound1.add(btnGenerarInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, 30));
 
         getContentPane().add(JpanelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 1010, 520));
 
@@ -201,34 +233,95 @@ jPanel1.setSize(1108, 633);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+      try {
+        // Obtener el ID del alumno ingresado
+        int alumnoCodigo = Integer.parseInt(txtCodigo.getText());
+
+        // Obtener la conexión y el DAO
+        ConexionSQL conexionSQL = new ConexionSQL();
+        AsistenciaDAO asistenciaDAO = new AsistenciDAOImpl(conexionSQL);
+
+        // Buscar alumnos por ID
+        List<Alumno> alumnos = asistenciaDAO.obtenerAlumnosConAsistencias(alumnoCodigo);
+
+        // Actualizar la tabla con los datos obtenidos
+        actualizarTabla(alumnos);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnBuscarActionPerformed
+private void actualizarTabla(List<Alumno> alumnos) {
+    String[] columnas = {"Código", "Nombres", "Apellidos", "Email", "Carrera", "Curso", "Asistencias", "Faltas"};
+    Object[][] datos = new Object[alumnos.size()][8];
+
+    for (int i = 0; i < alumnos.size(); i++) {
+        Alumno alumno = alumnos.get(i);
+        datos[i][0] = alumno.getAlumnoCodigo();
+        datos[i][1] = alumno.getAlumnoNombres();
+        datos[i][2] = alumno.getAlumnoApellidos();
+        datos[i][3] = alumno.getAlumnoEmail();
+        datos[i][4] = alumno.getAlumnoCarreraProfesional();
+        datos[i][5] = alumno.getAsistencia().getCursoNombre();
+        datos[i][6] = alumno.getAsistencia().getAsistencias();
+        datos[i][7] = alumno.getAsistencia().getFaltas();
+    }
+
+    jtDATOS.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+}
+
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Flecha atras.png"))); // NOI18N
+      
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Flecha atras.png"))); // NOI18N
+        
+        jfrmAsistencia jfrmAsistencia=new jfrmAsistencia();
+        jfrmAsistencia.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        ReporteInsidiencias ReporteInsidiencias= new ReporteInsidiencias();
+       ReporteInsidiencias.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnGenerarInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarInformeActionPerformed
+      try {
+        // Obtener el ID del alumno ingresado
+        int alumnoCodigo = Integer.parseInt(txtCodigo.getText());
+
+        // Obtener la conexión y el DAO
+        ConexionSQL conexionSQL = new ConexionSQL();
+        AsistenciaDAO asistenciaDAO = new AsistenciDAOImpl(conexionSQL);
+
+        // Buscar alumnos por ID
+        List<Alumno> alumnos = asistenciaDAO.obtenerAlumnosConAsistencias(alumnoCodigo);
+
+        // Generar el reporte en PDF
+        String filePath = "reporte_asistencia.pdf";
+        ReporteService.generarReporteAsistencia(filePath, alumnos);
+
+        JOptionPane.showMessageDialog(this, "Reporte generado en: " + filePath, "Reporte Generado", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Ocurrió un error al generar el reporte.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnGenerarInformeActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Vista.PanelRound JpanelRound1;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnGenerarInforme;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser7;
@@ -247,7 +340,7 @@ jPanel1.setSize(1108, 633);
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable jtDATOS;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

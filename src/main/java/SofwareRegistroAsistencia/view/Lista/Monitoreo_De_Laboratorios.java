@@ -1,5 +1,10 @@
 package SofwareRegistroAsistencia.view.Lista;
 
+import SoftwareAsistencia.Controllers.LaboratorioDAOImpl;
+import SoftwareAsistencia.model.ConexionSQL;
+import SoftwareAsistencia.model.Laboratorio;
+import SoftwareAsistencia.model.interfaz.LaboratorioDAO;
+import Vista.PanelRound;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -8,12 +13,18 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
  
-public class Prueba3 extends javax.swing.JFrame {
- 
-    public Prueba3() {
+public class Monitoreo_De_Laboratorios extends javax.swing.JFrame {
+    public Monitoreo_De_Laboratorios() {
         initComponents();
-        
+         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 //JpanelRound1.setBackground(new Color(0, 0, 0, 90)); //FONDO OSCURO SEMI TRANSPARENTE
 //JpanelRound1.setBackground(new Color(255, 255, 255, 85));//fondo tranparente claro
 JpanelRound1.setBackground(new Color(0, 0, 0, 150));
@@ -31,9 +42,9 @@ this.setLocationRelativeTo(null);
         jPanel1 = new javax.swing.JPanel();
         JpanelRound1 = new Vista.PanelRound();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jtDatosLab = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
+        txtLAB = new javax.swing.JTextField();
         jDateChooser7 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
@@ -61,7 +72,7 @@ this.setLocationRelativeTo(null);
         JpanelRound1.setRoundTopRight(50);
         JpanelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jtDatosLab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -76,10 +87,10 @@ this.setLocationRelativeTo(null);
                 "N° Lab", "Curso", "Estudiante", "Aforo ", "Asistencias", "Faltas"
             }
         ));
-        jTable3.setColumnSelectionAllowed(true);
-        jScrollPane3.setViewportView(jTable3);
+        jtDatosLab.setColumnSelectionAllowed(true);
+        jScrollPane3.setViewportView(jtDatosLab);
 
-        JpanelRound1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 920, 300));
+        JpanelRound1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 920, 300));
 
         btnBuscar.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa (2).jpg"))); // NOI18N
@@ -89,7 +100,7 @@ this.setLocationRelativeTo(null);
             }
         });
         JpanelRound1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 30, 30));
-        JpanelRound1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 160, 30));
+        JpanelRound1.add(txtLAB, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 160, 30));
         JpanelRound1.add(jDateChooser7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 160, 30));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 16)); // NOI18N
@@ -113,6 +124,11 @@ this.setLocationRelativeTo(null);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("REPORTE ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         JpanelRound1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 110, 140, 30));
         JpanelRound1.add(jDateChooser9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 160, 30));
 
@@ -120,6 +136,7 @@ this.setLocationRelativeTo(null);
         JpanelRound1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 940, 10));
 
         jButton2.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 24)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Flecha atras.png"))); // NOI18N
         jButton2.setText("VOLVER");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +144,7 @@ this.setLocationRelativeTo(null);
                 jButton2ActionPerformed(evt);
             }
         });
-        JpanelRound1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 490, -1, 40));
+        JpanelRound1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 490, -1, 40));
 
         jPanel1.add(JpanelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 1000, 550));
 
@@ -140,12 +157,54 @@ this.setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+    try {
+        // Obtener el número de laboratorio ingresado
+        int laboratorioNumero = Integer.parseInt(txtLAB.getText());
+
+        // Obtener la conexión y el DAO
+        ConexionSQL conexionSQL = new ConexionSQL();
+        LaboratorioDAO laboratorioDAO = new LaboratorioDAOImpl(conexionSQL.obtenerConexion());
+
+        // Buscar laboratorios por número
+        List<Laboratorio> laboratorios = laboratorioDAO.obtenerLaboratoriosConAsistencias(laboratorioNumero);
+
+        // Mostrar resultados en la tabla
+        DefaultTableModel tableModel = (DefaultTableModel) jtDatosLab.getModel(); // Supongamos que jTable es tu tabla
+        tableModel.setRowCount(0); // Limpiar la tabla antes de añadir nuevos datos
+
+        if (laboratorios.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se encontraron laboratorios para el número ingresado.", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            for (Laboratorio lab : laboratorios) {
+                String estudiante = lab.getAlumno().getAlumnoNombres()+ " " + lab.getAlumno().getAlumnoApellidos();
+                Object[] row = {
+                    lab.getLaboratorioID(), // Nº Lab (Horario_ID)
+                    lab.getCursos().getCursoNombre(), // Curso
+                    estudiante, // Estudiante
+                    lab.getLaboratorioCapacidad(), // Aforo (Laboratorio_Capacidad)
+                    lab.getAsistencia().getAsistencias(), // Asistencias
+                    lab.getAsistencia().getFaltas() // Faltas
+                };
+                tableModel.addRow(row);
+            }
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un número de laboratorio válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
+    }    
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Flecha atras.png"))); // NOI18N
+      
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Vista.PanelRound JpanelRound1;
@@ -164,7 +223,7 @@ this.setLocationRelativeTo(null);
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable jtDatosLab;
+    private javax.swing.JTextField txtLAB;
     // End of variables declaration//GEN-END:variables
 }

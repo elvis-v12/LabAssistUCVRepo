@@ -21,10 +21,7 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         Estado = new javax.swing.ButtonGroup();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jtblAlumnosRegistrar = new javax.swing.JTable();
         jbtnGrabarAsistenciaAlumno = new javax.swing.JButton();
-        jbtnGrabarAsistencia = new javax.swing.JButton();
         jtxtAlumnoApellidoPaterno = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jtxtAlumnoID = new javax.swing.JTextField();
@@ -35,10 +32,10 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jtxtAlumnoApellidoMaterno = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jcbxCurso = new javax.swing.JComboBox<>();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel5 = new javax.swing.JLabel();
         btnfoto = new javax.swing.JButton();
+        btnJustificar = new javax.swing.JButton();
+        jbtnGrabarAsistenciaAlumno2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FORMULARIO ASISTENCIA");
@@ -53,46 +50,15 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         jCheckBox3.setText("Justificación");
         getContentPane().add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 376, -1, -1));
 
-        jtblAlumnosRegistrar.setBackground(new java.awt.Color(255, 77, 94));
-        jtblAlumnosRegistrar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "IDAlumno", "Alumno"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(jtblAlumnosRegistrar);
-
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 339, 239));
-
         jbtnGrabarAsistenciaAlumno.setBackground(new java.awt.Color(152, 201, 167));
-        jbtnGrabarAsistenciaAlumno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Source/disco-flexible.png"))); // NOI18N
-        jbtnGrabarAsistenciaAlumno.setText("GRABAR ASISTENCIA ALUMNO");
+        jbtnGrabarAsistenciaAlumno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/estudiante.png"))); // NOI18N
+        jbtnGrabarAsistenciaAlumno.setText("ASISTENCIA DE ESTUDINATES");
         jbtnGrabarAsistenciaAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnGrabarAsistenciaAlumnoActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtnGrabarAsistenciaAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 442, -1, 46));
-
-        jbtnGrabarAsistencia.setBackground(new java.awt.Color(152, 201, 167));
-        jbtnGrabarAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Source/disco-flexible.png"))); // NOI18N
-        jbtnGrabarAsistencia.setText("Grabar Asistencia");
-        jbtnGrabarAsistencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnGrabarAsistenciaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jbtnGrabarAsistencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 490, 750, 60));
+        getContentPane().add(jbtnGrabarAsistenciaAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 490, -1, 46));
 
         jtxtAlumnoApellidoPaterno.setEditable(false);
         getContentPane().add(jtxtAlumnoApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 278, 200, -1));
@@ -107,7 +73,7 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 246, 123, 26));
 
         jtxtAlumnoNombres.setEditable(false);
-        getContentPane().add(jtxtAlumnoNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 246, 200, -1));
+        getContentPane().add(jtxtAlumnoNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 238, 200, 30));
 
         jLabel3.setText("Apellido Paterno");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 278, 123, 26));
@@ -131,7 +97,7 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 6, 1208, 152));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 6, 1260, 152));
 
         jtxtAlumnoApellidoMaterno.setEditable(false);
         getContentPane().add(jtxtAlumnoApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 200, -1));
@@ -139,19 +105,9 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         jLabel4.setText("Apellido Materno");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 309, 123, 26));
 
-        jcbxCurso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbxCursoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jcbxCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 186, 200, 57));
-
         Estado.add(jCheckBox1);
         jCheckBox1.setText("Asistencia");
         getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 376, -1, -1));
-
-        jLabel5.setText("Asignaturas");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 164, 77, -1));
 
         btnfoto.setBackground(new java.awt.Color(73, 181, 172));
         btnfoto.setFont(new java.awt.Font("Gotham Extra Light", 0, 18)); // NOI18N
@@ -176,20 +132,37 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         });
         getContentPane().add(btnfoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, 130, 60));
 
+        btnJustificar.setBackground(new java.awt.Color(152, 201, 167));
+        btnJustificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
+        btnJustificar.setText("GRABAR REGISTRO ALUMNO");
+        btnJustificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJustificarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnJustificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 490, -1, 46));
+
+        jbtnGrabarAsistenciaAlumno2.setBackground(new java.awt.Color(152, 201, 167));
+        jbtnGrabarAsistenciaAlumno2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/administrador.png"))); // NOI18N
+        jbtnGrabarAsistenciaAlumno2.setText("LABORATORIOS");
+        jbtnGrabarAsistenciaAlumno2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnGrabarAsistenciaAlumno2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbtnGrabarAsistenciaAlumno2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, 180, 46));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
         private void jbtnGrabarAsistenciaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGrabarAsistenciaAlumnoActionPerformed
-           
+        Asistencia_Estudiantes Asistencia_Estudiantes=new Asistencia_Estudiantes();  
+        Asistencia_Estudiantes.setVisible(true);
         }//GEN-LAST:event_jbtnGrabarAsistenciaAlumnoActionPerformed
 
-        private void jbtnGrabarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGrabarAsistenciaActionPerformed
-
-        }//GEN-LAST:event_jbtnGrabarAsistenciaActionPerformed
-
         private void btnfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfotoActionPerformed
-            FaceRecognition faceRecognition = new FaceRecognition();
+            //FaceRecognition faceRecognition = new FaceRecognition();
 
         }//GEN-LAST:event_btnfotoActionPerformed
 
@@ -197,12 +170,18 @@ public class jfrmAsistencia extends javax.swing.JFrame {
 
         }//GEN-LAST:event_btnfotoKeyPressed
 
-        private void jcbxCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbxCursoActionPerformed
-            
-        }//GEN-LAST:event_jcbxCursoActionPerformed
+    private void btnJustificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJustificarActionPerformed
+
+    }//GEN-LAST:event_btnJustificarActionPerformed
+
+    private void jbtnGrabarAsistenciaAlumno2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGrabarAsistenciaAlumno2ActionPerformed
+       Monitoreo_De_Laboratorios Monitoreo_De_Laboratorios= new Monitoreo_De_Laboratorios();
+       Monitoreo_De_Laboratorios.setVisible(true);
+    }//GEN-LAST:event_jbtnGrabarAsistenciaAlumno2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Estado;
+    private javax.swing.JButton btnJustificar;
     private javax.swing.JButton btnfoto;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
@@ -211,14 +190,10 @@ public class jfrmAsistencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jbtnGrabarAsistencia;
     private javax.swing.JButton jbtnGrabarAsistenciaAlumno;
-    private javax.swing.JComboBox<String> jcbxCurso;
-    private javax.swing.JTable jtblAlumnosRegistrar;
+    private javax.swing.JButton jbtnGrabarAsistenciaAlumno2;
     private javax.swing.JTextField jtxtAlumnoApellidoMaterno;
     private javax.swing.JTextField jtxtAlumnoApellidoPaterno;
     private javax.swing.JTextField jtxtAlumnoID;

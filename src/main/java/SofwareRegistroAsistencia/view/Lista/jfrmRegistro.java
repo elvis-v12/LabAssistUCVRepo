@@ -4,13 +4,13 @@ import SoftwareAsistencia.model.ConexionSQL;
 import SoftwareAsistencia.Controllers.FaceRecognition;
 
 
-public class jfrmRegistroDocente extends javax.swing.JFrame {
+public class jfrmRegistro extends javax.swing.JFrame {
 
         ConexionSQL conexionSQL;
 
         ConexionSQL cd;
 
-        public jfrmRegistroDocente() {
+        public jfrmRegistro() {
                 initComponents();
                 this.setLocationRelativeTo(null);
         }
