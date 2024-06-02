@@ -165,7 +165,7 @@ jPanel1.setSize(1108, 633);
                 jButton5ActionPerformed(evt);
             }
         });
-        JpanelRound1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 470, -1, 30));
+        JpanelRound1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, -1, 30));
 
         jButton6.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 20)); // NOI18N
         jButton6.setText("INFORME");

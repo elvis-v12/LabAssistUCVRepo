@@ -1,64 +1,88 @@
 package SoftwareAsistencia.model;
-
-/**
- *
- * @author elnoe
- */
 public class Alumno {
+    private int alumnoCodigo;
+    private String alumnoNombres;
+    private String alumnoApellidos;
+    private String alumnoEmail;
+    private String alumnoQR;
+    private String alumnoImagenRostro;
+    private String alumnoCarreraProfesional;
+    private String alumnoEstado;
 
-        private int ID_Alumno;
+    public Alumno(int alumnoCodigo, String alumnoNombres, String alumnoApellidos, String alumnoEmail, String alumnoQR, String alumnoImagenRostro, String alumnoCarreraProfesional, String alumnoEstado) {
+        this.alumnoCodigo = alumnoCodigo;
+        this.alumnoNombres = alumnoNombres;
+        this.alumnoApellidos = alumnoApellidos;
+        this.alumnoEmail = alumnoEmail;
+        this.alumnoQR = alumnoQR;
+        this.alumnoImagenRostro = alumnoImagenRostro;
+        this.alumnoCarreraProfesional = alumnoCarreraProfesional;
+        this.alumnoEstado = alumnoEstado;
+    }
 
-        private String nombre;
+    public int getAlumnoCodigo() {
+        return alumnoCodigo;
+    }
 
-        private String apellido_paterno;
+    public void setAlumnoCodigo(int alumnoCodigo) {
+        this.alumnoCodigo = alumnoCodigo;
+    }
 
-        private String apellido_materno;
+    public String getAlumnoNombres() {
+        return alumnoNombres;
+    }
 
-        public Alumno() {
-        }
+    public void setAlumnoNombres(String alumnoNombres) {
+        this.alumnoNombres = alumnoNombres;
+    }
 
-        public Alumno(int ID_Alumno, String nombre, String apellido_paterno, String apellido_materno) {
-                this.ID_Alumno = ID_Alumno;
-                this.nombre = nombre;
-                this.apellido_paterno = apellido_paterno;
-                this.apellido_materno = apellido_materno;
-        }
+    public String getAlumnoApellidos() {
+        return alumnoApellidos;
+    }
 
-        public int getID_Alumno() {
-                return ID_Alumno;
-        }
+    public void setAlumnoApellidos(String alumnoApellidos) {
+        this.alumnoApellidos = alumnoApellidos;
+    }
 
-        public void setID_Alumno(int ID_Alumno) {
-                this.ID_Alumno = ID_Alumno;
-        }
+    public String getAlumnoEmail() {
+        return alumnoEmail;
+    }
 
-        public String getNombre() {
-                return nombre;
-        }
+    public void setAlumnoEmail(String alumnoEmail) {
+        this.alumnoEmail = alumnoEmail;
+    }
 
-        public void setNombre(String nombre) {
-                this.nombre = nombre;
-        }
+    public String getAlumnoQR() {
+        return alumnoQR;
+    }
 
-        public String getApellido_paterno() {
-                return apellido_paterno;
-        }
+    public void setAlumnoQR(String alumnoQR) {
+        this.alumnoQR = alumnoQR;
+    }
 
-        public void setApellido_paterno(String apellido_paterno) {
-                this.apellido_paterno = apellido_paterno;
-        }
+    public String getAlumnoImagenRostro() {
+        return alumnoImagenRostro;
+    }
 
-        public String getApellido_materno() {
-                return apellido_materno;
-        }
+    public void setAlumnoImagenRostro(String alumnoImagenRostro) {
+        this.alumnoImagenRostro = alumnoImagenRostro;
+    }
 
-        public void setApellido_materno(String apellido_materno) {
-                this.apellido_materno = apellido_materno;
-        }
+    public String getAlumnoCarreraProfesional() {
+        return alumnoCarreraProfesional;
+    }
 
-        @Override
-        public String toString() {
-                return ID_Alumno + "," + nombre + "," + apellido_paterno + "," + apellido_materno;
-        }
+    public void setAlumnoCarreraProfesional(String alumnoCarreraProfesional) {
+        this.alumnoCarreraProfesional = alumnoCarreraProfesional;
+    }
 
+    public String getAlumnoEstado() {
+        return alumnoEstado;
+    }
+
+    public void setAlumnoEstado(String alumnoEstado) {
+        this.alumnoEstado = alumnoEstado;
+    }
+
+    
 }
