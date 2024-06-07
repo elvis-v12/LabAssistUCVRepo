@@ -2,12 +2,15 @@
 package SofwareRegistroAsistencia.view.Lista;
  
 import java.awt.Color;
+import javax.swing.JFrame;
 
 public class Reporte extends javax.swing.JFrame {
  
     public Reporte() {
         initComponents();
         JpanelRound1.setBackground(new Color(255, 255, 255, 50));   
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
     }
 
    
@@ -144,7 +147,7 @@ public class Reporte extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Flecha atras.png"))); // NOI18N
+
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed

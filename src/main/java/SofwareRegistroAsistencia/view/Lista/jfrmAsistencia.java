@@ -1,6 +1,7 @@
 package SofwareRegistroAsistencia.view.Lista;
 
 import SoftwareAsistencia.Controllers.FaceRecognition;
+import javax.swing.JFrame;
 
 /**
  *
@@ -11,7 +12,8 @@ public class jfrmAsistencia extends javax.swing.JFrame {
 
     public jfrmAsistencia() {
         initComponents();
-        
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,9 +35,10 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         jtxtAlumnoApellidoMaterno = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        btnfoto = new javax.swing.JButton();
+        btnQR = new javax.swing.JButton();
         btnJustificar = new javax.swing.JButton();
         jbtnGrabarAsistenciaAlumno2 = new javax.swing.JButton();
+        btnFoto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FORMULARIO ASISTENCIA");
@@ -109,28 +112,28 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         jCheckBox1.setText("Asistencia");
         getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 376, -1, -1));
 
-        btnfoto.setBackground(new java.awt.Color(73, 181, 172));
-        btnfoto.setFont(new java.awt.Font("Gotham Extra Light", 0, 18)); // NOI18N
-        btnfoto.setForeground(new java.awt.Color(0, 153, 204));
-        btnfoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/camara-fotografica.png"))); // NOI18N
-        btnfoto.setText("Foto");
-        btnfoto.setBorderPainted(false);
-        btnfoto.setContentAreaFilled(false);
-        btnfoto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnfoto.setFocusPainted(false);
-        btnfoto.setRequestFocusEnabled(false);
-        btnfoto.setVerifyInputWhenFocusTarget(false);
-        btnfoto.addActionListener(new java.awt.event.ActionListener() {
+        btnQR.setBackground(new java.awt.Color(73, 181, 172));
+        btnQR.setFont(new java.awt.Font("Gotham Extra Light", 0, 18)); // NOI18N
+        btnQR.setForeground(new java.awt.Color(0, 153, 204));
+        btnQR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/camara-fotografica.png"))); // NOI18N
+        btnQR.setText("Generar QR");
+        btnQR.setBorderPainted(false);
+        btnQR.setContentAreaFilled(false);
+        btnQR.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnQR.setFocusPainted(false);
+        btnQR.setRequestFocusEnabled(false);
+        btnQR.setVerifyInputWhenFocusTarget(false);
+        btnQR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnfotoActionPerformed(evt);
+                btnQRActionPerformed(evt);
             }
         });
-        btnfoto.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnQR.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnfotoKeyPressed(evt);
+                btnQRKeyPressed(evt);
             }
         });
-        getContentPane().add(btnfoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, 130, 60));
+        getContentPane().add(btnQR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 270, 180, 60));
 
         btnJustificar.setBackground(new java.awt.Color(152, 201, 167));
         btnJustificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/disco-flexible.png"))); // NOI18N
@@ -152,6 +155,29 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         });
         getContentPane().add(jbtnGrabarAsistenciaAlumno2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, 180, 46));
 
+        btnFoto.setBackground(new java.awt.Color(73, 181, 172));
+        btnFoto.setFont(new java.awt.Font("Gotham Extra Light", 0, 18)); // NOI18N
+        btnFoto.setForeground(new java.awt.Color(0, 153, 204));
+        btnFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/camara-fotografica.png"))); // NOI18N
+        btnFoto.setText("Foto");
+        btnFoto.setBorderPainted(false);
+        btnFoto.setContentAreaFilled(false);
+        btnFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFoto.setFocusPainted(false);
+        btnFoto.setRequestFocusEnabled(false);
+        btnFoto.setVerifyInputWhenFocusTarget(false);
+        btnFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFotoActionPerformed(evt);
+            }
+        });
+        btnFoto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnFotoKeyPressed(evt);
+            }
+        });
+        getContentPane().add(btnFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, 130, 60));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -161,14 +187,15 @@ public class jfrmAsistencia extends javax.swing.JFrame {
         Asistencia_Estudiantes.setVisible(true);
         }//GEN-LAST:event_jbtnGrabarAsistenciaAlumnoActionPerformed
 
-        private void btnfotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfotoActionPerformed
-            //FaceRecognition faceRecognition = new FaceRecognition();
+        private void btnQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQRActionPerformed
+        QR_UCVGenerator QR_UCVGenerator = new QR_UCVGenerator();
+        QR_UCVGenerator.setVisible(true);
+        
+        }//GEN-LAST:event_btnQRActionPerformed
 
-        }//GEN-LAST:event_btnfotoActionPerformed
+        private void btnQRKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnQRKeyPressed
 
-        private void btnfotoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnfotoKeyPressed
-
-        }//GEN-LAST:event_btnfotoKeyPressed
+        }//GEN-LAST:event_btnQRKeyPressed
 
     private void btnJustificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJustificarActionPerformed
 
@@ -179,10 +206,19 @@ public class jfrmAsistencia extends javax.swing.JFrame {
        Monitoreo_De_Laboratorios.setVisible(true);
     }//GEN-LAST:event_jbtnGrabarAsistenciaAlumno2ActionPerformed
 
+    private void btnFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoActionPerformed
+      FaceRecognition faceRecognition = new FaceRecognition();
+    }//GEN-LAST:event_btnFotoActionPerformed
+
+    private void btnFotoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFotoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFotoKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Estado;
+    private javax.swing.JButton btnFoto;
     private javax.swing.JButton btnJustificar;
-    private javax.swing.JButton btnfoto;
+    private javax.swing.JButton btnQR;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;

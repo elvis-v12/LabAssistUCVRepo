@@ -1,6 +1,5 @@
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$4.class
 SofwareRegistroAsistencia\view\Lista\jfrmAsistencia.class
-SofwareRegistroAsistencia\view\Lista\QR_UCVGenerator$2.class
 SoftwareAsistencia\model\ConexionSQL.class
 SoftwareAsistencia\model\interfaz\NotificacionCorreoDAO.class
 SofwareRegistroAsistencia\view\Lista\Reporte$4.class
@@ -26,6 +25,7 @@ SoftwareAsistencia\Controllers\FaceRecognition$1.class
 SofwareRegistroAsistencia\view\Lista\jfrmAsistencia$4.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$2.class
 SofwareRegistroAsistencia\view\Lista\ReporteInsidiencias$2.class
+SofwareRegistroAsistencia\view\Lista\Monitoreo_De_Laboratorios$3.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$3.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes.class
 SofwareRegistroAsistencia\view\Lista\Monitoreo_De_Laboratorios$2.class
@@ -55,9 +55,11 @@ SoftwareAsistencia\model\interfaz\AsistenciaDAO.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$6.class
 SoftwareAsistencia\Controllers\LaboratorioDAOImpl.class
 SoftwareAsistencia\model\Curso.class
+SofwareRegistroAsistencia\view\Lista\jfrmAsistencia$7.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$5.class
 SoftwareAsistencia\Controllers\AlumnoDAOImpl.class
 Vista\PanelRound.class
+SofwareRegistroAsistencia\view\Lista\jfrmAsistencia$8.class
 SoftwareAsistencia\model\ReporteService.class
 SoftwareAsistencia\model\interfaz\CursoDAO.class
 SoftwareAsistencia\model\Alumno.class

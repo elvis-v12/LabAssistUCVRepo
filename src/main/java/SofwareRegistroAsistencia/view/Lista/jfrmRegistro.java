@@ -2,6 +2,7 @@ package SofwareRegistroAsistencia.view.Lista;
 
 import SoftwareAsistencia.model.ConexionSQL;
 import SoftwareAsistencia.Controllers.FaceRecognition;
+import javax.swing.JFrame;
 
 
 public class jfrmRegistro extends javax.swing.JFrame {
@@ -13,6 +14,8 @@ public class jfrmRegistro extends javax.swing.JFrame {
         public jfrmRegistro() {
                 initComponents();
                 this.setLocationRelativeTo(null);
+                this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         }
 
         @SuppressWarnings("unchecked")

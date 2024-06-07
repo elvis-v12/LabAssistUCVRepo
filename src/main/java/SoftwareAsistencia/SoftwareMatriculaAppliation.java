@@ -13,7 +13,7 @@ import SofwareRegistroAsistencia.view.Lista.jfrmRegistro;
 public class SoftwareMatriculaAppliation {
 
         public static void main(String[] args) {
-              java.awt.EventQueue.invokeLater(() -> new Monitoreo_De_Laboratorios().setVisible(true));
+              java.awt.EventQueue.invokeLater(() -> new jfrmAsistencia().setVisible(true));
                 
         }
 }
