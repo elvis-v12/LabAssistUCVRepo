@@ -149,9 +149,9 @@ public class ReconocerRostro {
         return image;
     }
 
-//    public static void main(String[] args) {
-//        javax.swing.SwingUtilities.invokeLater(() -> new ReconocerRostro());
-//    }
+  public static void main(String[] args) {
+       javax.swing.SwingUtilities.invokeLater(() -> new ReconocerRostro());
+   }
 }
 
             

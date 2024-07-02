@@ -17,6 +17,9 @@ public class Curso {
         this.laboratorio = laboratorio;
     }
 
+    public Curso() {
+    }
+
     public Curso(String cursoNombre) {
         this.cursoNombre = cursoNombre;
     }

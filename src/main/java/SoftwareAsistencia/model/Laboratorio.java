@@ -22,7 +22,11 @@ public class Laboratorio {
         this.Horario = Horario;
         this.Laboratorio = Laboratorio;
     }
-  
+  public Laboratorio(int laboratorioID, String laboratorioNombre, int laboratorioCapacidad) {
+        this.laboratorioID = laboratorioID;
+        this.laboratorioNombre = laboratorioNombre;
+        this.laboratorioCapacidad = laboratorioCapacidad;
+    }
 
     public Laboratorio(int laboratorioID, String laboratorioNombre, int laboratorioUbicacion, int laboratorioCapacidad, Alumno Alumno, Laboratorio Laboratorio) {
         this.laboratorioID = laboratorioID;
@@ -33,11 +37,6 @@ public class Laboratorio {
         this.Laboratorio = Laboratorio;
     }
     
-    public Laboratorio(int laboratorioID, String laboratorioNombre, int laboratorioCapacidad) {
-        this.laboratorioID = laboratorioID;
-        this.laboratorioNombre = laboratorioNombre;
-        this.laboratorioCapacidad = laboratorioCapacidad;
-    }
 
     public Laboratorio(int laboratorioID, String laboratorioNombre, int laboratorioUbicacion, int laboratorioCapacidad, Laboratorio Laboratorio) {
         this.laboratorioID = laboratorioID;

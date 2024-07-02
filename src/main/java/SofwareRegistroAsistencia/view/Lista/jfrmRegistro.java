@@ -3,6 +3,7 @@ package SofwareRegistroAsistencia.view.Lista;
 import SoftwareAsistencia.model.ConexionSQL;
 import SoftwareAsistencia.Controllers.FaceRecognition;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 public class jfrmRegistro extends javax.swing.JFrame {
@@ -98,7 +99,12 @@ public class jfrmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFoto1KeyPressed
 
     private void btnFoto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoto1ActionPerformed
-       FaceRecognition faceRecognition = new FaceRecognition();        
+String input = JOptionPane.showInputDialog(null, "Ingrese el ID del estudiante:", "ID del Estudiante", JOptionPane.QUESTION_MESSAGE);
+    if (input != null && !input.trim().isEmpty()) {
+        new FaceRecognition(input);
+    } else {
+        JOptionPane.showMessageDialog(null, "ID del estudiante no válido. Por favor, ingrese un valor.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnFoto1ActionPerformed
  
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,24 +1,20 @@
 package SofwareRegistroAsistencia.view.Lista;
 
-import SoftwareAsistencia.Controllers.LaboratorioDAOImpl;
-import SoftwareAsistencia.model.ConexionSQL;
 import SoftwareAsistencia.model.Laboratorio;
-import SoftwareAsistencia.model.interfaz.LaboratorioDAO;
-import Vista.PanelRound;
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.UIManager;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme;
+import SoftwareAsistencia.model.LaboratorioService;
+import SoftwareAsistencia.model.dao.LaboratorioDAOImpl;
+import com.formdev.flatlaf.json.ParseException;
 import java.awt.Color;
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
  
 public class Monitoreo_De_Laboratorios extends javax.swing.JFrame {
     public Monitoreo_De_Laboratorios() {
@@ -29,7 +25,11 @@ public class Monitoreo_De_Laboratorios extends javax.swing.JFrame {
 //JpanelRound1.setBackground(new Color(255, 255, 255, 85));//fondo tranparente claro
 JpanelRound1.setBackground(new Color(0, 0, 0, 150));
 this.setLocationRelativeTo(null);
-
+DefaultTableModel model = new DefaultTableModel();
+model.setColumnIdentifiers(new Object[]{
+    "Laboratorio Nombre", "Capacidad", "Curso Nombre", "Asistencia %", "Estado Asistencia", "Alumno Nombres", "Alumno Apellidos"
+});
+jtDatosLab.setModel(model);
 //jPanel1.setSize(1110, 630); 
 //this.setExtendedState(this.MAXIMIZED_BOTH);
     }
@@ -44,17 +44,17 @@ this.setLocationRelativeTo(null);
         jScrollPane3 = new javax.swing.JScrollPane();
         jtDatosLab = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
-        txtLAB = new javax.swing.JTextField();
-        jDateChooser7 = new com.toedter.calendar.JDateChooser();
+        txtFin = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jDateChooser9 = new com.toedter.calendar.JDateChooser();
         jSeparator5 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
+        txtLAB1 = new javax.swing.JTextField();
+        txtInicio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
@@ -74,17 +74,17 @@ this.setLocationRelativeTo(null);
 
         jtDatosLab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "N° Lab", "Curso", "Estudiante", "Aforo ", "Asistencias", "Faltas"
+                "Nombre LAB", "Curso", "Nombre", "Apellido", "Aforo ", "Asistencias", "Estado"
             }
         ));
         jtDatosLab.setColumnSelectionAllowed(true);
@@ -100,12 +100,13 @@ this.setLocationRelativeTo(null);
             }
         });
         JpanelRound1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 30, 30));
-        JpanelRound1.add(txtLAB, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 160, 30));
-        JpanelRound1.add(jDateChooser7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 160, 30));
+
+        txtFin.setBorder(javax.swing.BorderFactory.createTitledBorder("F. Fin"));
+        JpanelRound1.add(txtFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, 160, 40));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("N° Lab:");
+        jLabel8.setText("N Lab:");
         JpanelRound1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 60, 30));
 
         jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,7 +131,6 @@ this.setLocationRelativeTo(null);
             }
         });
         JpanelRound1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 110, 140, 30));
-        JpanelRound1.add(jDateChooser9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 160, 30));
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
         JpanelRound1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 940, 10));
@@ -145,6 +145,10 @@ this.setLocationRelativeTo(null);
             }
         });
         JpanelRound1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 490, -1, 40));
+        JpanelRound1.add(txtLAB1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 160, 30));
+
+        txtInicio.setBorder(javax.swing.BorderFactory.createTitledBorder("F.Inicio"));
+        JpanelRound1.add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 160, 40));
 
         jPanel1.add(JpanelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 1000, 550));
 
@@ -157,53 +161,69 @@ this.setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    try {
-        // Obtener el número de laboratorio ingresado
-        int laboratorioNumero = Integer.parseInt(txtLAB.getText());
+        try {
+        // Obtener los valores de los campos de entrada
+        String laboratorioNombre = txtLAB1.getText();
+        int laboratorioUbicacion = (Integer) jSpinner1.getValue();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        // Obtener la conexión y el DAO
-        ConexionSQL conexionSQL = new ConexionSQL();
-        LaboratorioDAO laboratorioDAO = new LaboratorioDAOImpl(conexionSQL.obtenerConexion());
+        // Convertir los textos a java.util.Date
+        java.util.Date utilDateInicio = dateFormat.parse(txtInicio.getText());
+        java.util.Date utilDateFin = dateFormat.parse(txtFin.getText());
 
-        // Buscar laboratorios por número
-        List<Laboratorio> laboratorios = laboratorioDAO.obtenerLaboratoriosConAsistencias(laboratorioNumero);
+        // Convertir java.util.Date a java.sql.Timestamp
+        java.sql.Timestamp horarioHoraInicio = new java.sql.Timestamp(utilDateInicio.getTime());
+        java.sql.Timestamp horarioHoraFin = new java.sql.Timestamp(utilDateFin.getTime());
 
-        // Mostrar resultados en la tabla
-        DefaultTableModel tableModel = (DefaultTableModel) jtDatosLab.getModel(); // Supongamos que jTable es tu tabla
-        tableModel.setRowCount(0); // Limpiar la tabla antes de añadir nuevos datos
+        // Crear una instancia del DAO
+        LaboratorioDAOImpl laboratorioDAO = new LaboratorioDAOImpl();
 
-        if (laboratorios.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No se encontraron laboratorios para el número ingresado.", "Resultado", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            for (Laboratorio lab : laboratorios) {
-                String estudiante = lab.getAlumno().getAlumnoNombres()+ " " + lab.getAlumno().getAlumnoApellidos();
-                Object[] row = {
-                    lab.getLaboratorioID(), // Nº Lab (Horario_ID)
-                    lab.getCursos().getCursoNombre(), // Curso
-                    estudiante, // Estudiante
-                    lab.getLaboratorioCapacidad(), // Aforo (Laboratorio_Capacidad)
-                    lab.getAsistencia().getAsistencias(), // Asistencias
-                    lab.getAsistencia().getFaltas() // Faltas
-                };
-                tableModel.addRow(row);
-            }
+        // Llamar al método para obtener los datos del laboratorio
+        List<Laboratorio> laboratorios = laboratorioDAO.obtenerDatosLaboratorio(horarioHoraInicio, horarioHoraFin, laboratorioUbicacion, laboratorioNombre);
+
+        // Limpiar la tabla antes de agregar nuevos datos
+        DefaultTableModel model = (DefaultTableModel) jtDatosLab.getModel();
+        model.setRowCount(0);
+
+        // Procesar los resultados y agregarlos a la tabla
+        for (Laboratorio laboratorio : laboratorios) {
+            Object[] rowData = new Object[]{
+                laboratorio.getLaboratorioNombre(),
+                laboratorio.getLaboratorioCapacidad(),
+                laboratorio.getCursos().getCursoNombre(),
+                laboratorio.getAsistencia().getAsistenciaPorcentaje(),
+                laboratorio.getAsistencia().getAsistenciaEstado(),
+                laboratorio.getAlumno().getAlumnoNombres(),
+                laboratorio.getAlumno().getAlumnoApellidos()
+            };
+            model.addRow(rowData);
         }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese un número de laboratorio válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage(), "Error de conexión", JOptionPane.ERROR_MESSAGE);
-    }    
+
+        JOptionPane.showMessageDialog(this, "Búsqueda completada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al buscar los datos del laboratorio", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (ParseException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al parsear las fechas", "Error", JOptionPane.ERROR_MESSAGE);
+    }   catch (java.text.ParseException ex) {
+            Logger.getLogger(Monitoreo_De_Laboratorios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      
+jfrmAsistencia jfrmAsistencia= new jfrmAsistencia();
+jfrmAsistencia.setVisible(true);
+dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+   LaboratorioService laboratorioService = new LaboratorioService();
+        String filePath = "C:\\Users\\ELVIS\\OneDrive\\Documentos\\NetBeansProjects\\SoftwareReconocimientoFacilUCV\\reporte_laboratorio.pdf";
+        laboratorioService.generarReporteLaboratorio(filePath);    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -211,8 +231,6 @@ this.setLocationRelativeTo(null);
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser7;
-    private com.toedter.calendar.JDateChooser jDateChooser9;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
@@ -224,6 +242,8 @@ this.setLocationRelativeTo(null);
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jtDatosLab;
-    private javax.swing.JTextField txtLAB;
+    private javax.swing.JTextField txtFin;
+    private javax.swing.JTextField txtInicio;
+    private javax.swing.JTextField txtLAB1;
     // End of variables declaration//GEN-END:variables
 }

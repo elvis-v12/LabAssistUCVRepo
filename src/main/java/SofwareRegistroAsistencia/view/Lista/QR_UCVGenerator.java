@@ -34,7 +34,7 @@ public class QR_UCVGenerator extends javax.swing.JFrame {
      */
     public QR_UCVGenerator() {
         initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
     }
 

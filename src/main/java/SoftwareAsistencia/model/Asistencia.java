@@ -12,45 +12,16 @@ public class Asistencia {
     private String cursoNombre; // Para el nombre del curso
     private int asistencias;
     private int faltas;
- private Laboratorio Laboratorio;
-    public Asistencia(int asistencias, int faltas) {
-        this.asistencias = asistencias;
-        this.faltas = faltas;
-    }
+    private Laboratorio laboratorio;
 
-    public Asistencia(int asistencias, int faltas, Laboratorio Laboratorio) {
-        this.asistencias = asistencias;
-        this.faltas = faltas;
-        this.Laboratorio = Laboratorio;
-    }
-
-    public Asistencia(int asistenciaID, int asistenciaAlumnoID, int asistenciaHorarioID, Date asistenciaFechaHora, float asistenciaPorcentaje, String asistenciaEstado, String cursoNombre, int asistencias, int faltas) {
-        this.asistenciaID = asistenciaID;
-        this.asistenciaAlumnoID = asistenciaAlumnoID;
-        this.asistenciaHorarioID = asistenciaHorarioID;
-        this.asistenciaFechaHora = asistenciaFechaHora;
+    // Constructor for use in Alumno
+    public Asistencia(float asistenciaPorcentaje, String asistenciaEstado) {
         this.asistenciaPorcentaje = asistenciaPorcentaje;
         this.asistenciaEstado = asistenciaEstado;
-        this.cursoNombre = cursoNombre;
-        this.asistencias = asistencias;
-        this.faltas = faltas;
     }
 
-    public Asistencia(int asistenciaID, int asistenciaAlumnoID, int asistenciaHorarioID, Date asistenciaFechaHora, float asistenciaPorcentaje, String asistenciaEstado, String cursoNombre, int asistencias, int faltas, Laboratorio Laboratorio) {
-        this.asistenciaID = asistenciaID;
-        this.asistenciaAlumnoID = asistenciaAlumnoID;
-        this.asistenciaHorarioID = asistenciaHorarioID;
-        this.asistenciaFechaHora = asistenciaFechaHora;
-        this.asistenciaPorcentaje = asistenciaPorcentaje;
-        this.asistenciaEstado = asistenciaEstado;
-        this.cursoNombre = cursoNombre;
-        this.asistencias = asistencias;
-        this.faltas = faltas;
-        this.Laboratorio = Laboratorio;
-    }
 
     // Getters y setters aquí
-
     public int getAsistenciaID() {
         return asistenciaID;
     }
@@ -124,11 +95,10 @@ public class Asistencia {
     }
 
     public Laboratorio getLaboratorio() {
-        return Laboratorio;
+        return laboratorio;
     }
 
-    public void setLaboratorio(Laboratorio Laboratorio) {
-        this.Laboratorio = Laboratorio;
+    public void setLaboratorio(Laboratorio laboratorio) {
+        this.laboratorio = laboratorio;
     }
-    
 }

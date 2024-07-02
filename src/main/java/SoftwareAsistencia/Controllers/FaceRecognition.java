@@ -1,10 +1,12 @@
 package SoftwareAsistencia.Controllers;
 
-import SoftwareAsistencia.model.ConexionSQL;
+import SoftwareAsistencia.model.dao.AlumnoDAOImpl;
+import SoftwareAsistencia.model.interfaz.AlumnoDAO;
 import org.opencv.core.*;
-import org.opencv.core.Rect;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.videoio.VideoCapture;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -12,15 +14,11 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.videoio.VideoCapture;
 
 public class FaceRecognition {
 
-    private final VideoCapture capture;
+    private VideoCapture capture;
     private JFrame frame;
     private JPanel panel;
     private JLabel label;
@@ -29,13 +27,14 @@ public class FaceRecognition {
     private Mat frameMat;
     private CascadeClassifier faceCascade;
     private boolean isRunning;
-    private Connection connection;
+    private AlumnoDAO alumnoDAO;
+    private String alumnoCodigo; 
 
     private static final String CARPETA_GUARDADO = "C:\\Users\\Elvis\\Documents\\NetBeansProjects\\SofwareMatricula\\Rostros";
-    private static final String CARPETA_REFERENCIAS = "C:\\Users\\Elvis\\Documents\\NetBeansProjects\\SofwareMatricula\\Rostros";
 
-    public FaceRecognition() {
+    public FaceRecognition(String alumnoCodigo) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        this.alumnoCodigo = alumnoCodigo;
         capture = new VideoCapture(0);
 
         if (!capture.isOpened()) {
@@ -86,11 +85,12 @@ public class FaceRecognition {
         });
 
         isRunning = false; // No iniciar la captura automáticamente al inicio
+        alumnoDAO = new AlumnoDAOImpl();
     }
 
     private void reconocerRostro() {
         if (seDetectoRostro()) {
-            abrirNuevoFormulario();
+            // Aquí puedes agregar la lógica para abrir un nuevo formulario si se detecta un rostro
         } else {
             JOptionPane.showMessageDialog(frame, "No se detectó ningún rostro.", "Error", JOptionPane.WARNING_MESSAGE);
         }
@@ -100,35 +100,6 @@ public class FaceRecognition {
         MatOfRect faceDetections = new MatOfRect();
         faceCascade.detectMultiScale(frameMat, faceDetections);
         return faceDetections.toArray().length > 0;
-    }
-
-    private void abrirNuevoFormulario() {
-        SwingUtilities.invokeLater(() -> {
-            //prueva pruebaFormulario = new prueva();
-           // pruebaFormulario.setVisible(true);
-        });
-    }
-
-    private boolean compararConReferencias(String imagenCapturada) {
-        try {
-            File carpetaReferencias = new File(CARPETA_REFERENCIAS);
-            File[] archivosReferencia = carpetaReferencias.listFiles();
-
-            for (File archivoReferencia : archivosReferencia) {
-                String imagenReferencia = archivoReferencia.getAbsolutePath();
-                if (realizarComparacion(imagenCapturada, imagenReferencia)) {
-                    return true;  // Coincidencia encontrada
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;  // No se encontraron coincidencias
-    }
-
-    public static boolean realizarComparacion(String imagenCapturada, String imagenReferencia) {
-        return imagenCapturada.equals(imagenReferencia);
     }
 
     public void stopCapture() {
@@ -175,7 +146,7 @@ public class FaceRecognition {
 
         for (Rect rect : faceDetections.toArray()) {
             Mat faceROI = new Mat(frameMat, rect);
-            String filename = CARPETA_GUARDADO + "\\cara_temp.jpg";
+            String filename = CARPETA_GUARDADO + "\\cara_" + alumnoCodigo + ".jpg";
 
             File carpetaGuardado = new File(CARPETA_GUARDADO);
             if (!carpetaGuardado.exists()) {
@@ -185,30 +156,17 @@ public class FaceRecognition {
             Imgcodecs.imwrite(filename, faceROI);
             System.out.println("Cara temporal guardada en: " + filename);
 
-            if (compararConReferencias(filename)) {
-                saveImageToDatabase(filename);
+            try {
+                alumnoDAO.guardarImagen(alumnoCodigo, filename);
+                System.out.println("Imagen guardada en la base de datos.");
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
         ImageIcon image = new ImageIcon(matToBufferedImage(frameMat));
         label.setIcon(image);
         frame.repaint();
-    }
-
-    private void saveImageToDatabase(String filename) {
-        try {
-            if (connection == null || connection.isClosed()) {
-                connection = ConexionSQL.obtenerConexion();
-            }
-
-            String sql = "INSERT INTO images (filename) VALUES (?)";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, filename);
-                statement.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     private BufferedImage matToBufferedImage(Mat mat) {
@@ -225,7 +183,15 @@ public class FaceRecognition {
         return image;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(FaceRecognition::new);
-    }
+public static void main(String[] args) {
+    SwingUtilities.invokeLater(() -> {
+        String input = JOptionPane.showInputDialog(null, "Ingrese el ID del estudiante:", "ID del Estudiante", JOptionPane.QUESTION_MESSAGE);
+        if (input != null && !input.trim().isEmpty()) {
+            new FaceRecognition(input);
+        } else {
+            JOptionPane.showMessageDialog(null, "ID del estudiante no válido. Por favor, ingrese un valor.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    });
+}
+
 }
