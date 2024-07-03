@@ -135,7 +135,12 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
     public static void main(String[] args) {
         new ReporteInsidiencias().setVisible(true);
     }
-    
+    private void limpiarCampos() {
+    // Limpiar los campos de entrada
+    txtAsunto.setText("");
+    txtCorreo.setText("");
+    txtMensaje.setText("");
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,6 +155,7 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
         btnAddjuntarImagen = new javax.swing.JButton();
         txtAsunto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         btnEnviar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -167,13 +173,12 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtCorreo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        txtCorreo.setText("PARA:");
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
             }
         });
-        jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 16, 844, 40));
+        jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 16, 760, 40));
 
         txtMensaje.setColumns(20);
         txtMensaje.setRows(5);
@@ -185,8 +190,9 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
         jLabel2.setText("Redactar mensaje:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, 20));
 
-        btnAddjuntarImagen.setBackground(new java.awt.Color(255, 0, 0));
+        btnAddjuntarImagen.setBackground(new java.awt.Color(102, 102, 102));
         btnAddjuntarImagen.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 18)); // NOI18N
+        btnAddjuntarImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagen.png"))); // NOI18N
         btnAddjuntarImagen.setText("Adjuntar archivo");
         btnAddjuntarImagen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,6 +205,10 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         jLabel3.setText("Asunto:");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 70, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("PARA:");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
@@ -218,6 +228,7 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
         btnEnviar.setBackground(new java.awt.Color(0, 0, 102));
         btnEnviar.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 24)); // NOI18N
         btnEnviar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/gmail.png"))); // NOI18N
         btnEnviar.setText("Enviar mensaje");
         btnEnviar.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
@@ -243,11 +254,15 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 937, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -256,6 +271,7 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
       createEmail();
         sendEmail();
+        limpiarCampos() ;
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -285,6 +301,7 @@ public class ReporteInsidiencias extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

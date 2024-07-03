@@ -101,7 +101,8 @@ public class jfrmRegistro extends javax.swing.JFrame {
     private void btnFoto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFoto1ActionPerformed
 String input = JOptionPane.showInputDialog(null, "Ingrese el ID del estudiante:", "ID del Estudiante", JOptionPane.QUESTION_MESSAGE);
     if (input != null && !input.trim().isEmpty()) {
-        new FaceRecognition(input);
+        FaceRecognition faceRecognition = new FaceRecognition(input);
+        faceRecognition.startCapture();
     } else {
         JOptionPane.showMessageDialog(null, "ID del estudiante no válido. Por favor, ingrese un valor.", "Error", JOptionPane.ERROR_MESSAGE);
     }

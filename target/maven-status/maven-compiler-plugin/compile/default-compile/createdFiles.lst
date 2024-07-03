@@ -2,7 +2,7 @@ SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$4.class
 SofwareRegistroAsistencia\view\Lista\jfrmAsistencia.class
 SoftwareAsistencia\model\dao\AlumnoDAOImpl.class
 SoftwareAsistencia\model\ConexionSQL.class
-SoftwareAsistencia\ReporteInsidiencias$2.class
+SoftwareAsistencia\model\interfaz\NotificacionCorreoDAO.class
 SofwareRegistroAsistencia\view\Lista\Reporte$4.class
 SoftwareAsistencia\Controllers\ReconocerRostro$1.class
 SofwareRegistroAsistencia\view\Lista\jfrmAsistencia$5.class
@@ -16,7 +16,6 @@ SoftwareAsistencia\model\dao\EstudianteDAO.class
 SofwareRegistroAsistencia\view\Lista\ReporteInsidiencias$1.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$7.class
 SoftwareAsistencia\model\AlumnoService.class
-SoftwareAsistencia\Main.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$1.class
 SoftwareAsistencia\model\NotificacionCorreo.class
 SoftwareAsistencia\model\interfaz\LaboratorioDAO.class
@@ -57,7 +56,7 @@ SoftwareAsistencia\model\LaboratorioService.class
 SofwareRegistroAsistencia\view\Lista\ReporteInsidiencias$5.class
 SoftwareAsistencia\model\ObservacionesLaboratorio.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$6.class
-SoftwareAsistencia\ReporteInsidiencias$1.class
+SoftwareAsistencia\model\dao\NotificacionCorreoDAOImpl.class
 SoftwareAsistencia\model\Curso.class
 SofwareRegistroAsistencia\view\Lista\jfrmAsistencia$7.class
 SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes$5.class
@@ -65,7 +64,6 @@ Vista\PanelRound.class
 SofwareRegistroAsistencia\view\Lista\jfrmAsistencia$8.class
 SoftwareAsistencia\model\ReporteService.class
 SofwareRegistroAsistencia\view\Lista\ReporteInsidiencias$6.class
-SoftwareAsistencia\ReporteInsidiencias.class
 SoftwareAsistencia\model\Alumno.class
 SofwareRegistroAsistencia\view\Lista\jfrmAsistencia$1.class
 SoftwareAsistencia\model\dao\LaboratorioDAOImpl.class

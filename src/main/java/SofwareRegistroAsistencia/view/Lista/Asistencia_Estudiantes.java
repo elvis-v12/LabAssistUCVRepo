@@ -127,13 +127,14 @@ private void initializeTable() {
         JpanelRound1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 650, 340));
 
         btnVer.setFont(new java.awt.Font("Yu Gothic UI", 1, 15)); // NOI18N
-        btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa (2).jpg"))); // NOI18N
+        btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registro.png"))); // NOI18N
+        btnVer.setText("VER REGISTRO");
         btnVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerActionPerformed(evt);
             }
         });
-        JpanelRound1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 180, 30));
+        JpanelRound1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 341, 180, -1));
         JpanelRound1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, 30));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N

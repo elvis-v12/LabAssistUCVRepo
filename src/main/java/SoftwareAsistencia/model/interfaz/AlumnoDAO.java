@@ -11,5 +11,5 @@ public interface AlumnoDAO {
     List<Alumno> obtenerTodosLosAlumnos() throws SQLException;
         List<Alumno> obtenerAlumnosPorFiltROS(String cursoNombre, String alumnoCdg, String ciclo, String alumnoCarreraProfesional) throws SQLException;
     List<Alumno> obtenerTodosLosAlumno() throws SQLException;
-
+    void guardarQR(String alumnoCodigo, byte[] imagenBytes) throws SQLException;
 }

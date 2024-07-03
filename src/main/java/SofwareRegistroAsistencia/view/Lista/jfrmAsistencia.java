@@ -85,7 +85,7 @@ private void mostrarAlumnosEnTabla(List<Alumno> alumnos) {
         jLabel3.setText("Apellido");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 123, 26));
 
-        tbDatos.setBackground(new java.awt.Color(255, 77, 94));
+        tbDatos.setBackground(new java.awt.Color(204, 204, 204));
         tbDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

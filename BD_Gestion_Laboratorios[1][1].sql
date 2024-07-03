@@ -16,6 +16,9 @@ CREATE TABLE Alumno (
     Alumno_Estado VARCHAR(50)
 
 );
+ALTER TABLE Alumno
+ALTER COLUMN Alumno_QR VARCHAR(MAX);
+
 GO
 ALTER TABLE Alumno
 ADD Alumno_Cdg VARCHAR(20);
@@ -240,7 +243,8 @@ CREATE TABLE Notificacion_Correo (
     FOREIGN KEY (Asistencia_ID) REFERENCES Asistencia(Asistencia_ID)
 );
 GO
-
+select * from Notificacion_Correo
+select * from Asistencia
 INSERT INTO Curso (Curso_Nombre, Curso_Total_Alumnos, Curso_Profesor_Codigo)
 VALUES ('Matemáticas Avanzadas', 30, 1),
        ('Historia del Arte', 25, 2),
@@ -716,3 +720,23 @@ BEGIN
         L.Laboratorio_Nombre, C.Curso_Nombre, A.Alumno_Nombres;
 END;
 GO
+
+
+
+
+CREATE PROCEDURE sp_InsertarNotificacionCorreo
+    @Destinatario VARCHAR(100),
+    @Asunto VARCHAR(255),
+    @Mensaje VARCHAR(500),
+    @Asistencia_ID INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    INSERT INTO Notificacion_Correo (Destinatario, Asunto, Mensaje, Fecha_Envio, Asistencia_ID)
+    VALUES (@Destinatario, @Asunto, @Mensaje, GETDATE(), @Asistencia_ID);
+END;
+GO
+
+
+select * from Notificacion_Correo

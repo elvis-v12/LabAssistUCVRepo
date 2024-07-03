@@ -1,8 +1,6 @@
-C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\ReporteInsidiencias.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SofwareRegistroAsistencia\view\Lista\QR_UCVGenerator.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\LaboratorioService.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SofwareRegistroAsistencia\view\Lista\Asistencia_Estudiantes.java
-C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\Main.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\Controllers\ReconocerRostro.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SofwareRegistroAsistencia\view\Lista\Monitoreo_De_Laboratorios.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SofwareRegistroAsistencia\view\Lista\Prueba.java
@@ -22,8 +20,10 @@ C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilU
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\ReporteService.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\Curso.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\interfaz\FiltroAlumnos.java
+C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\dao\NotificacionCorreoDAOImpl.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SofwareRegistroAsistencia\view\Lista\ReporteInsidiencias.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\Horario.java
+C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\interfaz\NotificacionCorreoDAO.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\ObservacionesLaboratorio.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\Alumno.java
 C:\Users\ELVIS\OneDrive\Documentos\NetBeansProjects\SoftwareReconocimientoFacilUCV\src\main\java\SoftwareAsistencia\model\Asistencia.java

@@ -1,7 +1,11 @@
  
 package SofwareRegistroAsistencia.view.Lista;
  
+import SoftwareAsistencia.model.dao.NotificacionCorreoDAOImpl;
+import SoftwareAsistencia.model.interfaz.NotificacionCorreoDAO;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,20 +30,22 @@ public class Reporte extends javax.swing.JFrame {
     private Properties mProperties;
     private Session mSession;
     private MimeMessage mCorreo;
+    
+     private NotificacionCorreoDAO notificacionCorreoDAO;
     public Reporte() {
         initComponents();
         JpanelRound1.setBackground(new Color(255, 255, 255, 50));   
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
          mProperties = new Properties();
+         notificacionCorreoDAO = new NotificacionCorreoDAOImpl();
     }
 
-  private void createEmail() {
+private void createEmail() {
         emailTo = txtCorreo.getText().trim();
         subject = txtAsunto.getText().trim();
         content = txtMensaje.getText().trim();
 
-        // Simple mail transfer protocol
         mProperties.put("mail.smtp.host", "smtp.gmail.com");
         mProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         mProperties.setProperty("mail.smtp.starttls.enable", "true");
@@ -72,12 +78,33 @@ public class Reporte extends javax.swing.JFrame {
             mTransport.close();
 
             JOptionPane.showMessageDialog(null, "Correo enviado");
+
+            // Guardar las notificaciones en la base de datos
+            saveNotificationsToDatabase();
+
         } catch (NoSuchProviderException ex) {
             Logger.getLogger(Reporte.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MessagingException ex) {
             Logger.getLogger(Reporte.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Reporte.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private void saveNotificationsToDatabase() throws SQLException {
+        // Obtener todos los IDs de asistencia
+        List<Integer> asistenciaIDs = notificacionCorreoDAO.obtenerTodosLosIdsDeAsistencia();
+        // Insertar una notificación para cada ID de asistencia
+        for (int asistenciaID : asistenciaIDs) {
+            notificacionCorreoDAO.insertarNotificacion(emailTo, subject, content, asistenciaID);
+        }
+    }
+    private void limpiarCampos() {
+    // Limpiar los campos de entrada
+    txtAsunto.setText("");
+    txtCorreo.setText("");
+    txtMensaje.setText("");
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -225,8 +252,13 @@ dispose();
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
          createEmail();
         sendEmail();
+        limpiarCampos();
     }//GEN-LAST:event_btnEnviarActionPerformed
-
+private void saveNotificationsToDatabase(List<Integer> asistenciaIDs) throws SQLException {
+    for (int asistenciaID : asistenciaIDs) {
+        notificacionCorreoDAO.insertarNotificacion(emailTo, subject, content, asistenciaID);
+    }
+}
     private void btnExploradorArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExploradorArchivosActionPerformed
 
     }//GEN-LAST:event_btnExploradorArchivosActionPerformed

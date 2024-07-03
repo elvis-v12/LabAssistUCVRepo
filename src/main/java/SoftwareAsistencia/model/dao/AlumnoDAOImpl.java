@@ -98,11 +98,10 @@ public class AlumnoDAOImpl implements AlumnoDAO {
     }
     
   @Override
-public List<Alumno> obtenerAlumnosPorFiltROS(String cursoNombre, String alumnoCdg, String ciclo, String alumnoCarreraProfesional) throws SQLException {
+public List<Alumno> obtenerAlumnosPorFiltROS(String cursoNombre, String alumnoCdg, String ciclo, String alumnoCarreraProfesional) 
+        throws SQLException {
     List<Alumno> alumnos = new ArrayList<>();
-
     String sql = "{CALL sp_ObtenerDatosAlumnosFiltrado(?, ?, ?, ?)}";
-
     try (Connection conexion = ConexionSQL.obtenerConexion();
          CallableStatement statement = conexion.prepareCall(sql)) {
         statement.setString(1, cursoNombre);
@@ -163,4 +162,31 @@ public List<Alumno> obtenerTodosLosAlumno() throws SQLException {
     return alumnos;
 }
 
+@Override
+public void guardarQR(String alumnoCodigo, byte[] imagenBytes) throws SQLException {
+        String sqlUpdate = "UPDATE Alumno SET Alumno_QR = ? WHERE Alumno_Cdg = ?";
+        String sqlSelect = "SELECT COUNT(*) FROM Alumno WHERE Alumno_Cdg = ?";
+
+        try (Connection conexion = ConexionSQL.obtenerConexion();
+             PreparedStatement selectStatement = conexion.prepareStatement(sqlSelect)) {
+            selectStatement.setString(1, alumnoCodigo);
+            if (!selectStatement.executeQuery().next()) {
+                throw new SQLException("No se encontró el alumno con el código " + alumnoCodigo);
+            }
+        }
+
+        try (Connection conexion = ConexionSQL.obtenerConexion();
+             PreparedStatement statement = conexion.prepareStatement(sqlUpdate)) {
+            statement.setBytes(1, imagenBytes);
+            statement.setString(2, alumnoCodigo);
+
+            int filasActualizadas = statement.executeUpdate();
+            if (filasActualizadas == 0) {
+                throw new SQLException("No se encontró el alumno con el código " + alumnoCodigo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error al guardar el código QR del alumno en la base de datos.");
+        }
+    }
 }

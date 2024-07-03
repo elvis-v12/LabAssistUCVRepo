@@ -2,6 +2,7 @@ package SoftwareAsistencia.Controllers;
 
 import SoftwareAsistencia.model.dao.AlumnoDAOImpl;
 import SoftwareAsistencia.model.interfaz.AlumnoDAO;
+import SofwareRegistroAsistencia.view.Lista.Prueba;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -88,13 +89,17 @@ public class FaceRecognition {
         alumnoDAO = new AlumnoDAOImpl();
     }
 
-    private void reconocerRostro() {
-        if (seDetectoRostro()) {
-            // Aquí puedes agregar la lógica para abrir un nuevo formulario si se detecta un rostro
-        } else {
-            JOptionPane.showMessageDialog(frame, "No se detectó ningún rostro.", "Error", JOptionPane.WARNING_MESSAGE);
-        }
+private void reconocerRostro() {
+    if (seDetectoRostro()) {
+        JOptionPane.showMessageDialog(frame, "Rostro reconocido.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        Prueba pruebaForm = new Prueba();
+        pruebaForm.setVisible(true);
+        frame.dispose(); 
+    } else {
+        JOptionPane.showMessageDialog(frame, "No se detectó ningún rostro.", "Error", JOptionPane.WARNING_MESSAGE);
     }
+}
+
 
     private boolean seDetectoRostro() {
         MatOfRect faceDetections = new MatOfRect();

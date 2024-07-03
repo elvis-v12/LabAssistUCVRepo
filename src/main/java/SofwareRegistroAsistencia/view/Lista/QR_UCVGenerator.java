@@ -5,6 +5,8 @@
  */
 package SofwareRegistroAsistencia.view.Lista;
 
+import SoftwareAsistencia.model.dao.AlumnoDAOImpl;
+import SoftwareAsistencia.model.interfaz.AlumnoDAO;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -13,8 +15,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,12 +27,14 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author osvaldo
  */
 public class QR_UCVGenerator extends javax.swing.JFrame {
+AlumnoDAO alumnoDAO = new AlumnoDAOImpl();
 
     /**
      * Creates new form QR
@@ -100,55 +107,87 @@ public class QR_UCVGenerator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int size = 1000;
-        String FileType = "png";
+      int size = 1000;
+    String fileType = "png";
 
-        String codigo = txtCode.getText().trim();
-        // Elegir la ruta de la imagen
-        String filePath = "";
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            filePath = chooser.getSelectedFile().getAbsolutePath();
-        }
+    // Solicitar el código del alumno al usuario
+    String codigo = JOptionPane.showInputDialog(this, "Ingrese el código del alumno:");
+    if (codigo == null || codigo.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El código del alumno no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Elegir la ruta de la imagen
+    String filePath = "";
+    JFileChooser chooser = new JFileChooser();
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        filePath = chooser.getSelectedFile().getAbsolutePath();
+    } else {
+        JOptionPane.showMessageDialog(this, "No se seleccionó una carpeta.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Generar el nombre
-        UUID uuid = UUID.randomUUID();
-        String randonName = uuid.toString();
+    // Generar el nombre
+    UUID uuid = UUID.randomUUID();
+    String randomName = uuid.toString();
 
-        // Generar el QR 
-        QRCodeWriter qrcode = new QRCodeWriter();
-        try {
-            BitMatrix matrix = qrcode.encode(codigo, BarcodeFormat.QR_CODE, size, size);
-            File f = new File(filePath + "/" + randonName + "." + FileType);
-            int matrixWidth = matrix.getWidth();
-            BufferedImage image = new BufferedImage(matrixWidth, matrixWidth, BufferedImage.TYPE_INT_RGB);
-            image.createGraphics();
+    // Generar el QR 
+    QRCodeWriter qrcode = new QRCodeWriter();
+    try {
+        BitMatrix matrix = qrcode.encode(codigo, BarcodeFormat.QR_CODE, size, size);
+        File f = new File(filePath + "/" + randomName + "." + fileType);
+        int matrixWidth = matrix.getWidth();
+        BufferedImage image = new BufferedImage(matrixWidth, matrixWidth, BufferedImage.TYPE_INT_RGB);
+        image.createGraphics();
 
-            Graphics2D gd = (Graphics2D) image.getGraphics();
-            gd.setColor(Color.WHITE); // Fondo
-            gd.fillRect(0, 0, size, size);
-            gd.setColor(Color.black); // Qr
+        Graphics2D gd = (Graphics2D) image.getGraphics();
+        gd.setColor(Color.WHITE); // Fondo blanco
+        gd.fillRect(0, 0, size, size);
+        gd.setColor(Color.BLACK); // Color negro para el QR
 
-            for (int b = 0; b < matrixWidth; b++) {
-                for (int j = 0; j < matrixWidth; j++) {
-                    if (matrix.get(b, j)) {
-                        gd.fillRect(b, j, 1, 1);
-                    }
+        for (int b = 0; b < matrixWidth; b++) {
+            for (int j = 0; j < matrixWidth; j++) {
+                if (matrix.get(b, j)) {
+                    gd.fillRect(b, j, 1, 1);
                 }
             }
-            
-            // Mostrar la imagen generada
-            ImageIO.write(image, FileType, f);
-            Image mImagen = new ImageIcon(filePath + "/" + randonName + "." + FileType).getImage();
-            ImageIcon mIcono = new ImageIcon(mImagen.getScaledInstance(lblQr.getWidth(), lblQr.getHeight(), 0));
-            lblQr.setIcon(mIcono);
-            
-        } catch (WriterException ex) {
-            Logger.getLogger(QR_UCVGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Guardar la imagen generada en el sistema de archivos
+        ImageIO.write(image, fileType, f);
+
+        // Obtener los bytes de la imagen
+        FileInputStream fis = new FileInputStream(f);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        try {
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum);
+            }
         } catch (IOException ex) {
             Logger.getLogger(QR_UCVGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
+        byte[] imagenBytes = bos.toByteArray();
+
+        // Mostrar la imagen generada en un JLabel
+        Image mImagen = new ImageIcon(filePath + "/" + randomName + "." + fileType).getImage();
+        ImageIcon mIcono = new ImageIcon(mImagen.getScaledInstance(lblQr.getWidth(), lblQr.getHeight(), 0));
+        lblQr.setIcon(mIcono);
+
+        // Guardar la imagen y el código del alumno en la base de datos usando el DAO
+        AlumnoDAO alumnoDAO = new AlumnoDAOImpl();
+        try {
+            alumnoDAO.guardarQR(codigo, imagenBytes); // Ajusta el método según tu implementación de DAO
+        } catch (SQLException ex) {
+            Logger.getLogger(QR_UCVGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    } catch (WriterException ex) {
+        Logger.getLogger(QR_UCVGenerator.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+        Logger.getLogger(QR_UCVGenerator.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
